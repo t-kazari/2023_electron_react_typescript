@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import Papa from 'papaparse';
 
 interface CsvData {
-    sales_date: string;
-    store_cd: string;
-    store_nm: string;
-    jan_cd: string;
-    product_nm: string;
-    sales_qty: number;
-    sales_amt: number;
+    column1: string;
+    column2: string;
+    column3: string;
+    column4: string;
+    column5: string;
+    column6: number;
+    column7: number;
 }
 
 export default function UploadDialog() {
@@ -48,16 +48,16 @@ export default function UploadDialog() {
                 const { data } = results;
                 const parsedData: CsvData[] = data.map((row: any) => {
                     return({
-                    sales_date: row.sales_date,
-                    store_cd: row.store_cd,
-                    store_nm: row.store_nm,
-                    jan_cd: row.jan_cd,
-                    product_nm: row.product_nm,
-                    sales_qty: parseFloat(row.sales_qty),
-                    sales_amt: parseFloat(row.sales_amt),
+                    column1: row.column1,
+                    column2: row.column2,
+                    column3: row.column3,
+                    column4: row.column4,
+                    column5: row.column5,
+                    column6: parseFloat(row.column6),
+                    column7: parseFloat(row.column7),
                 })});
                 const eliminatedData = parsedData.filter((e)=>{
-                    return e.sales_date;
+                    return e.column1;
                 })
                 setCsvData(eliminatedData);
             },
