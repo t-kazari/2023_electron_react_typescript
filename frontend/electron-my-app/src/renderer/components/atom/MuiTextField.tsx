@@ -1,13 +1,17 @@
 import { Controller, useFormContext } from "react-hook-form";
 import { TextField } from "@mui/material";
 
-export default function MuiTextField() {
+type Props = {
+    name: string
+}
+
+export default function MuiTextField(props: Props) {
 
     const { control } = useFormContext();
 
     return (
         <Controller
-            name="text"
+            name={props.name}
             control={control}
             defaultValue=""
             rules={{
@@ -16,11 +20,11 @@ export default function MuiTextField() {
             render={({ field, formState: { errors } }) => (
                 <TextField
                     {...field}
-                    label="text"
+                    label={props.name}
                     placeholder="write"
                     fullWidth
-                    error={errors.text ? true : false}
-                    helperText={errors.text?.message as string}
+                    error={errors.name ? true : false}
+                    helperText={errors.name?.message as string}
                 />
             )}
         />

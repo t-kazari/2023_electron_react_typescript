@@ -8,8 +8,9 @@ class TestForm(BaseModel):
     gender: str
 
 class InputTestForm(BaseModel):
-    param1: str
-    param2: str
+    id: int
+    name: str
+    gender: str
 
 
 class OutputCommon(BaseModel):

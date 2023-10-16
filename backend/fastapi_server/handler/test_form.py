@@ -35,6 +35,25 @@ async def wrap(func, *args, **kwargs):
     return result
 
 
+@router.post('/fastapi/api/v1/alldata', response_model=OutputTestForm)
+@wrap
+async def find_all_data(context: Context = Depends(get_context)):
+    logger.info('start find_form_data')
+    injector = Injector([TestFormModule(context.db)])
+    repo = injector.get(TestFormRepository)
+    result = OutputTestForm()
+    service = TestFormService(repo)
+    response = await service.find_all_data()
+    result.statusCode = constants.NORMAL_STATUS
+    result.message = constants.NORMAL_STATUS_MESSAGE
+    result.responseEntity = response
+    
+    logger.debug(response)
+    
+    logger.info('end find_form_data')
+    return result
+
+
 @router.post('/fastapi/api/v1/formdata', response_model=OutputTestForm)
 @wrap
 async def find_form_data(param: InputTestForm, context: Context = Depends(get_context)):
@@ -47,5 +66,8 @@ async def find_form_data(param: InputTestForm, context: Context = Depends(get_co
     result.statusCode = constants.NORMAL_STATUS
     result.message = constants.NORMAL_STATUS_MESSAGE
     result.responseEntity = response
+    
+    logger.debug(response)
+    
     logger.info('end find_form_data')
     return result
